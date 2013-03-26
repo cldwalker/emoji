@@ -25,9 +25,9 @@
   (format "<img height='20' src='%s' style='vertical-align:middle' width='20' />"
           (str "/images/emoji/" name)))
 
-(defn- replace-emoji-string [name]
+(defn- replace-emoji-string [replace-fn name]
   (if (some #{(str name ".png")} (emoji-names))
-    (image-tag (str name ".png"))
+    (replace-fn (str name ".png"))
     name))
 
 (defn emoji-response
@@ -37,16 +37,20 @@ only happens if an emoji name is wrapped in colons e.g. :name:.
 
 Options:
 
-* :wild  When set to true, substitution happens on any word, no colon-delimitation required.
-         Default is false."
+* :wild        When set to true, substitution happens on any word, no
+               colon-delimitation required. Default is false.
+* :replace-fn  Custom fn to replace an emoji match, given emoji file basename.
+               Defaults to generating a 20x20 image tag."
   [{body :body :as response} & args]
-  (let [options (apply array-map args)]
+  (let [options (apply array-map args)
+        replace-emoji (partial replace-emoji-string
+                               (or (:replace-fn options) image-tag))]
     (assoc response
       :body
       (if (:wild options)
-        (string/replace body #"\S+" replace-emoji-string)
+        (string/replace body #"\S+" replace-emoji)
         (string/replace body #":(\S+):"
-                        #(replace-emoji-string (second %1)))))))
+                        #(replace-emoji (second %1)))))))
 
 (defn -main [& args]
   (apply copy-images args))

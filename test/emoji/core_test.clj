@@ -21,4 +21,9 @@
   (testing "with wild option substitutes multiple names correctly"
     (is (re-find
          #"/images/emoji/on.png.*/images/emoji/fire.png"
-         (:body (emoji-response {:body "This is on fire"} :wild true))))))
+         (:body (emoji-response {:body "This is on fire"} :wild true)))))
+  (testing "with replace-fn option substitutes correctly"
+    (is (re-find
+         #"FIRE"
+         (:body (emoji-response {:body "This is on :fire:"}
+                                :replace-fn #(.toUpperCase %)))))))
