@@ -27,3 +27,9 @@
          #"FIRE"
          (:body (emoji-response {:body "This is on :fire:"}
                                 :replace-fn #(.toUpperCase %)))))))
+
+(deftest wrap-emoji-test
+  (testing "substitutes :name: correctly"
+    (is (.contains
+         (:body ((wrap-emoji identity) {:body "This is on :fire:"}))
+         "/images/emoji/fire.png"))))

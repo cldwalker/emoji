@@ -52,5 +52,11 @@ Options:
         (string/replace body #":(\S+):"
                         #(replace-emoji (second %1)))))))
 
+(defn wrap-emoji
+  "Ring middleware to substitute emoji names with images. Takes same options as emoji-response."
+  [handler & opts]
+  (fn [request]
+    (apply emoji-response (handler request) opts)))
+
 (defn -main [& args]
   (apply copy-images args))
