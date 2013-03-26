@@ -3,12 +3,12 @@
             [me.raynes.fs :as fs]
             [clojure.string :as string]))
 
-(def images-dir "resources/public/images")
+(def images-dir "resources/public/images/emoji")
 
 (defn emoji-names
   "List of emoji file basenames"
   []
-  (fs/list-dir (str images-dir "/emoji")))
+  (fs/list-dir images-dir))
 
 (defn copy-images
   "Copy gemoji's images to a local directory for app use.
