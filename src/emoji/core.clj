@@ -19,6 +19,7 @@
      (sh/sh "git" "clone" "git://github.com/github/gemoji.git")
      (println "Copying images...")
      (fs/copy-dir "gemoji/images/emoji" dir)
+     (sh/sh "rm" "-rf" (str dir "/unicode"))
      (sh/sh "rm" "-rf" "gemoji")))
 
 (defn- image-tag [name]

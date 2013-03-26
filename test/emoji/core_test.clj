@@ -10,6 +10,7 @@
   (let [names (emoji-names)]
     (is (.endsWith (first names) ".png"))
     (is (> (count names) 800)))
+  (is (not (.isDirectory (io/file (str images-dir "/unicode")))))
   (sh/sh "rm" "-rf" "resources"))
 
 ;; requires copy-images to have created images
