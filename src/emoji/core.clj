@@ -8,11 +8,6 @@
 (def resources-images-dir (str "public/" public-images-dir))
 (def images-dir (str "resources/" resources-images-dir))
 
-(defn emoji-names
-  "List of emoji file basenames"
-  [dir]
-  (fs/list-dir dir))
-
 (defn copy-images
   "Copy gemoji's images to a local directory for app use.
  Defaults to images-dir if no directory specified."
@@ -22,6 +17,7 @@
      (sh/sh "git" "clone" "git://github.com/github/gemoji.git")
      (println "Copying images...")
      (fs/copy-dir "gemoji/images/emoji" dir)
+     ;; copy-dir copies symlinks as files thus removing need for unicode/
      (sh/sh "rm" "-rf" (str dir "/unicode"))
      (sh/sh "rm" "-rf" "gemoji")))
 
@@ -32,7 +28,7 @@
 (defn- replace-emoji-string [replace-fn local-dir name]
   (let [basename (str name ".png")
         valid-replace (if local-dir
-                        #(some #{%} (emoji-names local-dir))
+                        #(some #{%} (fs/list-dir local-dir))
                         #(io/resource (str resources-images-dir "/" %)))]
     (if (valid-replace basename) (replace-fn basename) name)))
 
@@ -46,7 +42,9 @@ Options:
 * :wild        When set to true, substitution happens on any word, no
                colon-delimitation required. Default is false.
 * :replace-fn  Custom fn to replace an emoji match, given emoji file basename.
-               Defaults to generating a 20x20 image tag."
+               Defaults to generating a 20x20 image tag.
+* :images-dir  Specifies a local directory for emoji images. When not
+               set, images that come with the emoji clojar are used."
   [{body :body :as response} & args]
   (let [options (apply array-map args)
         replace-emoji (partial replace-emoji-string
