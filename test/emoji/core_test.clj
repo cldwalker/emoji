@@ -5,13 +5,14 @@
             [emoji.core :refer :all]))
 
 (deftest copy-images-test
-  (copy-images)
-  (is (.isDirectory (io/file images-dir)))
-  (let [names (emoji-names)]
-    (is (.endsWith (first names) ".png"))
-    (is (> (count names) 800)))
-  (is (not (.isDirectory (io/file (str images-dir "/unicode")))))
-  (sh/sh "rm" "-rf" "resources"))
+  (let [dir ".images/emoji"]
+    (copy-images dir)
+    (is (.isDirectory (io/file dir)))
+    (let [names (emoji-names dir)]
+      (is (.endsWith (first names) ".png"))
+      (is (> (count names) 800)))
+    (is (not (.isDirectory (io/file (str dir "/unicode")))))
+    #_(sh/sh "rm" "-rf" dir)))
 
 ;; requires copy-images to have created images
 (deftest emoji-response-test

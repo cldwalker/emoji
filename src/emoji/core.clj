@@ -7,8 +7,8 @@
 
 (defn emoji-names
   "List of emoji file basenames"
-  []
-  (fs/list-dir images-dir))
+  ([] (emoji-names images-dir))
+  ([dir] (fs/list-dir dir)))
 
 (defn copy-images
   "Copy gemoji's images to a local directory for app use.
