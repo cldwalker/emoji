@@ -1,14 +1,17 @@
 (ns emoji.core
   (:require [clojure.java.shell :as sh]
             [me.raynes.fs :as fs]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [clojure.java.io :as io]))
 
-(def images-dir "resources/public/images/emoji")
+(def public-images-dir "images/emoji")
+(def resources-images-dir (str "public/" public-images-dir))
+(def images-dir (str "resources/" resources-images-dir))
 
 (defn emoji-names
   "List of emoji file basenames"
-  ([] (emoji-names images-dir))
-  ([dir] (fs/list-dir dir)))
+  [dir]
+  (fs/list-dir dir))
 
 (defn copy-images
   "Copy gemoji's images to a local directory for app use.
@@ -24,12 +27,14 @@
 
 (defn- image-tag [name]
   (format "<img height='20' src='%s' style='vertical-align:middle' width='20' />"
-          (str "/images/emoji/" name)))
+          (str "/" public-images-dir "/" name)))
 
-(defn- replace-emoji-string [replace-fn name]
-  (if (some #{(str name ".png")} (emoji-names))
-    (replace-fn (str name ".png"))
-    name))
+(defn- replace-emoji-string [replace-fn local-dir name]
+  (let [basename (str name ".png")
+        valid-replace (if local-dir
+                        #(some #{%} (emoji-names local-dir))
+                        #(io/resource (str resources-images-dir "/" %)))]
+    (if (valid-replace basename) (replace-fn basename) name)))
 
 (defn emoji-response
   "Modifies a ring response's body by substituting emoji names with images.
@@ -45,7 +50,8 @@ Options:
   [{body :body :as response} & args]
   (let [options (apply array-map args)
         replace-emoji (partial replace-emoji-string
-                               (or (:replace-fn options) image-tag))]
+                               (or (:replace-fn options) image-tag)
+                               (:images-dir options))]
     (assoc response
       :body
       (if (:wild options)

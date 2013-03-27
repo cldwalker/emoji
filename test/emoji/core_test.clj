@@ -12,7 +12,7 @@
       (is (.endsWith (first names) ".png"))
       (is (> (count names) 800)))
     (is (not (.isDirectory (io/file (str dir "/unicode")))))
-    #_(sh/sh "rm" "-rf" dir)))
+    (sh/sh "rm" "-rf" dir)))
 
 ;; requires copy-images to have created images
 (deftest emoji-response-test
