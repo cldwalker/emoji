@@ -7,7 +7,7 @@ containing emoji names with bundled emoji images.
 
 Add to your project.clj:
 
-    [emoji "0.1.0-SNAPSHOT"]
+    [emoji "0.1.0"]
 
 ## Usage
 

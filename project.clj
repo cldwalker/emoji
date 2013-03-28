@@ -1,4 +1,4 @@
-(defproject emoji "0.1.0-SNAPSHOT"
+(defproject emoji "0.1.0"
   :description "This library provides middleware/interceptorware to replace a response
 containing emoji names with bundled emoji images."
   :url "http://github.com/cldwalker/emoji"
