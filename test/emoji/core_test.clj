@@ -11,7 +11,7 @@
     (is (.isDirectory (io/file dir)))
     (let [names (fs/list-dir dir)]
       (is (.endsWith (first names) ".png"))
-      (is (> (count names) 800)))
+      (is (= (count names) 885)))
     (is (not (.isDirectory (io/file (str dir "/unicode")))))
     (sh/sh "rm" "-rf" dir)))
 
