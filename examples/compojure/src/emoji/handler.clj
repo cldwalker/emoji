@@ -6,7 +6,7 @@
             [ring.middleware.resource :refer [wrap-resource]]))
 
 (defroutes app-routes
-  (GET "/" [] "This world is on fire")
+  (GET "/" [] "This page is on fire")
   (route/not-found "Not Found"))
 
 (def app

@@ -11,11 +11,11 @@
   [request]
   {:status 200
    :headers { "Content-Type" "text/html"}
-   :body "This page is on :fire:"})
+   :body "This page is on fire"})
 
 (defon-response emoji-interceptor
   [response]
-  (emoji/emoji-response response))
+  (emoji/emoji-response response :wild true))
 
 (defroutes routes
   [[["/" {:get home-page} ^:interceptors [emoji-interceptor]]]])
