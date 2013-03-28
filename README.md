@@ -22,7 +22,7 @@ To use as an interceptor for a pedestal service:
 (defon-response emoji-interceptor
   [response]
   (emoji-response response))
- 
+
 ;; add emoji-interceptor to a route
 ["/" {:get some-endpoint ^:interceptors [emoji-interceptor]]
 ```
@@ -66,3 +66,6 @@ Please report them
 
 For this library's license see LICENSE.TXT. For license of emoji
 images see [gemoji's license](https://github.com/github/gemoji/blob/master/LICENSE).
+
+## Links
+* [demo app](https://github.com/cldwalker/emojinator)
