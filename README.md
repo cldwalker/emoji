@@ -14,7 +14,7 @@ Add to your project.clj:
 The below usages are taken from the full pedestal service and
 compojure app examples in [examples](examples/).
 
-As an interceptor for a pedestal service:
+To use as an interceptor for a pedestal service:
 
 ```clojure
 (require '[io.pedestal.service.interceptor :refer [defon-response]])
@@ -25,12 +25,12 @@ As an interceptor for a pedestal service:
  
 ;; add emoji-interceptor to a route
 ["/" {:get some-endpoint ^:interceptors [emoji-interceptor]]
-
-;; Now a response body such as "This page is on :fire:" becomes
-;; "This page is on <img height='20' src='/images/emoji/fire.png' style='vertical-align:middle' width='20' />"
 ```
 
-As middleware for a ring app:
+With emoji in place, a response body such as `This page is on :fire:`
+becomes `This page is on <img height='20' src='/images/emoji/fire.png' style='vertical-align:middle' width='20' />`.
+
+To use as middleware for a ring app:
 
 ```
 (require '[emoji.core :refer [emoji-response]])
@@ -45,9 +45,9 @@ As middleware for a ring app:
 
 Some additional options `emoji-response` and `wrap-emoji` can take:
 
-* :wild - Converts every word that is a valid emoji image without
-  colon-delimitation. For example "This page is on fire" would yield
-  two emojis since on and fire are emojis.
+* :wild - Converts every word that is a valid emoji name, no
+  colon-delimitation necessary. For example "This page is on fire" would yield
+  two emojis since on and fire are emoji names.
 * :replace-fn - Customize the replacement text for an emoji. Useful
   for customizing the emoji image tag.
 * :images-dir - Specify a local directory for emoji images.
