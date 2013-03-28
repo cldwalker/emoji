@@ -1,5 +1,6 @@
 (defproject emoji "0.1.0-SNAPSHOT"
-  :description "TODO"
+  :description "This library provides middleware/interceptorware to replace a response
+containing emoji names with bundled emoji images."
   :url "http://github.com/cldwalker/emoji"
   :license {:name "The MIT License"
             :url "https://en.wikipedia.org/wiki/MIT_License"}

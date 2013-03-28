@@ -1,7 +1,7 @@
 ## Description
 
-This library provides middleware/interceptorware to replace a response containing emoji names
-with bundled emoji images.
+This library provides middleware/interceptorware to replace a response
+containing emoji names with bundled emoji images.
 
 ## Install
 
