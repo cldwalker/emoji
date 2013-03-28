@@ -5,4 +5,5 @@
             :url "https://en.wikipedia.org/wiki/MIT_License"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [me.raynes/fs "1.4.0"]]
+  :min-lein-version "2.0.0"
   :aliases {"all" ["with-profile" "dev"]})
