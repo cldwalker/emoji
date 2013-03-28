@@ -1,7 +1,7 @@
 ## Description
 
 This library provides middleware/interceptorware to replace a response containing emoji names
-with emoji images. Images are provided thanks to [github's emojis](https://github.com/github/gemoji/).
+with bundled emoji images.
 
 ## Install
 
@@ -43,7 +43,7 @@ To use as middleware for a ring app:
     (wrap-resource "/public"))
 ```
 
-Some additional options `emoji-response` and `wrap-emoji` can take:
+Options `emoji-response` and `wrap-emoji` can take:
 
 * :wild - Converts every word that is a valid emoji name, no
   colon-delimitation necessary. For example "This page is on fire" would yield
@@ -56,7 +56,11 @@ To copy the bundled emojis: `lein trampoline run -m emoji.core [DIRECTORY]`
 
 ## Bugs/Issues
 
-Please report them [on github](http://github.com/cldwalker/emoji/issues).
+Please report them
+[on github](http://github.com/cldwalker/emoji/issues).
+
+## Credits
+* This project would not be possible without @github providing [their emojis](https://github.com/github/gemoji/).
 
 ## License
 
