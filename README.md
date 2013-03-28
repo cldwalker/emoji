@@ -32,9 +32,9 @@ becomes `This page is on <img height='20' src='/images/emoji/fire.png' style='ve
 
 To use as middleware for a ring app:
 
-```
+```clojure
 (require '[emoji.core :refer [emoji-response]])
-(require '[ring.middleware.resource :refer [wrap-resource]]
+(require '[ring.middleware.resource :refer [wrap-resource]])
 
 ;; Assuming a compojure routes table called app-routes
 ;; resource middleware is needed to serve up bundled emojis
